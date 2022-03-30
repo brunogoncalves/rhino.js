@@ -4,6 +4,37 @@ if (!(typeof _dt.parse == 'function')) {
     _dt = _dt.default;
 }
 
+_dt.extend({
+    formatter: {
+
+        // Extend LD (Ultimo dia do mês)
+        LL: function (d) {
+
+            // O Dia ZERO do mê sé o ultimo dia
+            var ld = new Date(d.getFullYear(), d.getMonth() + 1, 0);
+
+            return _dt.format(ld, 'DD');
+        },
+
+        // Extend FW (Primeiro dia da semana)
+        W: function (d) {
+            var diff = d.getDate() - d.getDay();
+            var nd = new Date(d.setDate(diff));
+
+            return _dt.format(nd, 'DD');
+        },
+
+        // Extend FW (Ultimo dia da semana)
+        WW: function (d) {
+            var diff = d.getDate() - d.getDay() + 6;
+            var nd = new Date(d.setDate(diff));
+
+            return _dt.format(nd, 'DD');
+        }
+
+    }
+});
+
 class Carbon
 {
     /**

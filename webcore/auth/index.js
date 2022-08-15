@@ -36,9 +36,10 @@ class Auth
     /**
      * Retorna o usuario logado.
      * 
+     * @param {boolean} inLogin
      * @returns {Object|null}
      */
-    async user()
+    async user(inLogin = false)
     {
         // Verificar se usuario já foi carregado
         if (this.$user) {
@@ -53,7 +54,7 @@ class Auth
 
         // Carregar dados do usuario
         try {
-            this.$user = await this.$provider.me();
+            this.$user = await this.$provider.me(inLogin);
 
             this.$token = token;
 
@@ -87,7 +88,7 @@ class Auth
         this.$token = ret.access_token;
         this.$user = null;
         
-        return this.user();
+        return this.user(true);
     }
 
     /**

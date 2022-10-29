@@ -37,7 +37,7 @@ module.exports = {
 
         // Verificar se deve salvar arquivo
         if (count > 0) {
-            var fileEnv = path.resolve(targetPath, '..', 'envs.js');
+            var fileEnv = path.resolve(targetPath, 'envs.js');
             fs.writeFileSync(fileEnv, data);
         }
     }

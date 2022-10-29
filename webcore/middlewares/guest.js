@@ -27,9 +27,14 @@ module.exports = (router, opts = {}) => {
 
         var route = {};
         if (typeof opts.routeGuest == 'function') {
-            route = opts.routeGuest();
+            route = opts.routeGuest(to, router, auth, opts);
         } else {
             route = { name: opts.routeGuest };
+        }
+
+        // Verificar se foi informado um string location
+        if ((typeof route == 'string') && (route.indexOf('http') >= 0)) {
+            return window.location = route;
         }
 
         return router.push(route);

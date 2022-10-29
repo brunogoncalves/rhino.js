@@ -33,9 +33,14 @@ module.exports = (router, storage, url, opts = {}) => {
             // Redirecionar para o login
             var route = {};
             if (typeof opts.routeLogin == 'function') {
-                route = opts.routeLogin();
+                route = opts.routeLogin(to, router, auth, opts);
             } else {
                 route = { name: opts.loginName };
+            }
+
+            // Verificar se foi informado um string location
+            if ((typeof route == 'string') && (route.indexOf('http') >= 0)) {
+                return window.location = route;
             }
 
             return router.push(route);
